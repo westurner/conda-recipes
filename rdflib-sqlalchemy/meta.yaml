@@ -1,0 +1,63 @@
+package:
+  name: rdflib-sqlalchemy
+#  version: {{ environ['GIT_DESCRIBE_TAG'] }}
+  version: {{ environ['GIT_DESCRIBE_HASH'] }}
+
+source:
+  git_tag: master
+  git_url: https://github.com/RDFLib/rdflib-sqlalchemy
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+build:
+  # preserve_egg_dir: True
+  entry_points:
+
+    - cookiecutter = cookiecutter.main:main
+
+  number: {{ environ.get('GIT_DESCRIBE_NUMBER', 0) }}
+
+  # Note that this will override the default build string with the Python
+  # and NumPy versions
+  string: {{ environ.get('GIT_BUILD_STR', '') }}
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - rdflib
+    - sqlalchemy
+
+  run:
+    - python
+    - rdflib
+    - sqlalchemy
+
+
+
+test:
+  # Python imports
+  imports:
+    - rdflib_sqlalchemy
+    - rdflib_sqlalchemy.SQLAlchemy
+
+  #commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: https://github.com/RDFLib/rdflib-sqlalchemy
+  license: BSD License
+  summary: 'rdflib extension adding SQLAlchemy as an AbstractSQLStore back-end store'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
